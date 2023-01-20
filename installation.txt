@@ -1,0 +1,28 @@
+We will need a build tool to build the client\front-end of our project, its called vite
+Which needs to use npm.
+Run the following code:
+
+Npm create vite@latest --template vanilla
+
+cd into client and run : npm install
+Now create a server folder and cd into it
+ Run this line to create a package.json file inside of our server 
+$ npm init -y
+Npm install cors used for cross origin requests (server\client)
+Npm install dotenv used for secure environment variables
+Npm install express as a backend framework
+Npm install nodemon to keep our application running during changes
+Npm install openai - for our chatgpt example
+
+Npm install cors dotenv express nodemon openai
+
+Then write the server side code in server.js
+
+in package.json add this line:
+     "start": "node server.js"
+
+to run client:
+    npm run dev
+to run server:
+    npm run server
+
