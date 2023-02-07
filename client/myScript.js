@@ -5,6 +5,8 @@ const form =document.querySelector('form');
 // const textArea = document.getElementById("prompt");
 const chatContainer = document.querySelector("#chat_container");
 
+const usertypeOption = document.querySelector("#userTypes");
+
 let loadInterval;
 // the loading animation to print . . .
 function loader(element)
@@ -28,6 +30,26 @@ function typeResponse(element, text)
     
     let interval = setInterval(() => {
         if(index < text.length){
+            element.innerHTML += text.charAt(index);
+            index++;
+        }else{
+            clearInterval(interval)
+        }
+    }, 20);
+
+    
+
+}
+
+// the function to print  AIresponse character by charatcer 
+// added the user type value to the response
+function typeResponseNew(element, text, userTypeValue)
+{
+    let index = 0;
+    element.innerHTML = `as a ${userTypeValue} you should know that: `
+    let interval = setInterval(() => {
+        if(index < text.length){
+            
             element.innerHTML += text.charAt(index);
             index++;
         }else{
@@ -75,8 +97,11 @@ const handleSubmit = async(e) => {
 //    always prevent the default form behaviour to run your custom behaviour
     e.preventDefault();
 
+    
+
     const inputData = new FormData(form);
     const input = inputData.get('prompt');
+    const optionValue = usertypeOption.value;
     // users div
     chatContainer.innerHTML += generatedDiv(false, input);
     // clear text area
@@ -103,7 +128,8 @@ const handleSubmit = async(e) => {
             'Content-Type': 'application/json',
         },
         body : JSON.stringify({
-            prompt: input
+            prompt: input,
+            userType:optionValue 
         })
 
     });
@@ -114,7 +140,11 @@ const handleSubmit = async(e) => {
     if(chatGptPromise.ok){
         const aiResponse = await chatGptPromise.json();
         const parsedResponse = aiResponse.bot.trim();
-        typeResponse(messageDiv, parsedResponse);
+        const userTypeResponse = aiResponse.userType
+
+        console.log("user type from server to client is: "+userTypeResponse)
+        // typeResponse(messageDiv, parsedResponse);
+        typeResponseNew(messageDiv, parsedResponse, userTypeResponse)
     }else{
         const aiResponse = await chatGptPromise.text();
         messageDiv.innerHTML = "something Went Wrong";
@@ -129,6 +159,7 @@ const handleSubmit = async(e) => {
 
 
 // we added an event listener to the submit action
+// userTypeBtn.addEventListener('')
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keyup', (e) =>{
     if(e.keyCode === 13){

@@ -17,9 +17,19 @@ Npm install openai - for our chatgpt example
 Npm install cors dotenv express nodemon openai
 
 Then write the server side code in server.js
-
+navigat to server folder and in terminal ruin :
+    npm init -y
+    which will create a new package.json file
 in package.json add this line:
-     "start": "node server.js"
+     "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server"
+  },
+
+  and add this line if you plan to import rather than require modules:
+  "description": "",
+  this here is the addition =   "type": "module",
+  "main": "server.js",
 
 to run client:
     npm run dev

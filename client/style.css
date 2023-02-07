@@ -135,6 +135,7 @@ textarea {
   border-radius: 5px;
   border: none;
   outline: none;
+  display: block;
 }
 
 button {
@@ -147,4 +148,9 @@ button {
 form img {
   width: 30px;
   height: 30px;
+}
+
+form {
+  width: 90%;
+  margin: 0 auto;
 }
